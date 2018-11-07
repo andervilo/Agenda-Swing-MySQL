@@ -9,6 +9,7 @@ import connectiondb.ContatosDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Contato;
 
@@ -189,7 +190,7 @@ public class Cadastro extends javax.swing.JFrame {
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println(retorno);
+        JOptionPane.showMessageDialog(null, retorno);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public void clearFields(){
@@ -213,11 +214,12 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        String retorno="";
         ContatosDAO ctDAO = new ContatosDAO();
         int row = tblContatos.getSelectedRow();
         int id = Integer.parseInt(tblContatos.getValueAt(row, 0).toString());
         try {
-            ctDAO.delete(id);
+            retorno = ctDAO.delete(id);
             this.clearFields();
             this.fillTable();
             btnSalvar.setEnabled(true);
@@ -226,10 +228,13 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        JOptionPane.showMessageDialog(null, retorno);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
+        String retorno="";
         Contato contato = new Contato();
         ContatosDAO ctDAO = new ContatosDAO();
         
@@ -238,7 +243,7 @@ public class Cadastro extends javax.swing.JFrame {
         contato.setEndereco(this.txtEndereco.getText());
         contato.setEmail(this.txtEmail.getText());
         try {
-            ctDAO.update(contato);
+            retorno = ctDAO.update(contato);
             this.clearFields();
             this.fillTable();
             btnSalvar.setEnabled(true);
@@ -247,6 +252,8 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        JOptionPane.showMessageDialog(null, retorno);
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
